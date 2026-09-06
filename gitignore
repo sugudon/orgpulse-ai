@@ -1,0 +1,106 @@
+# ==========================================
+# OrgPulse AI - .gitignore
+# ==========================================
+
+# Environment Variables
+.env
+.env.*
+!.env.example
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# Virtual Environments
+venv/
+.venv/
+env/
+ENV/
+
+# Streamlit
+.streamlit/secrets.toml
+
+# Testing & Coverage
+.pytest_cache/
+.coverage
+.coverage.*
+htmlcov/
+.tox/
+.nox/
+
+# Type Checking / Linting
+.mypy_cache/
+.pyre/
+.pytype/
+.ruff_cache/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# IDE - VS Code
+.vscode/
+!.vscode/settings.json
+!.vscode/extensions.json
+
+# IDE - PyCharm
+.idea/
+*.iml
+
+# OS Files
+.DS_Store
+.AppleDouble
+.LSOverride
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# Logs
+*.log
+logs/
+
+# Uploaded Documents
+uploads/
+temp/
+tmp/
+
+# Generated Data
+data/
+*.db
+*.sqlite
+*.sqlite3
+
+# Model Files / Cache
+models/
+cache/
+__cache__/
+
+# HuggingFace Cache (optional local cache)
+.huggingface/
+
+# PostgreSQL Local Data
+postgres_data/
+
+# Secrets / API Keys
+secrets/
+*.pem
+*.key
