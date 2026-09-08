@@ -1,678 +1,1338 @@
 # 🌐 OrgPulse AI
 
-## An Agentic Hybrid RAG System for Organizational Intelligence
+## Adaptive GraphRAG for Organizational Intelligence
 
-> **Don't just search documents. Discover connections, risks, contradictions, and hidden knowledge.**
+> **OrgPulse AI is an AI-powered Organizational Intelligence System that dynamically adapts its RAG strategy based on the user's query complexity, intent, and entities.**
 
-OrgPulse AI is an advanced **Agentic Hybrid RAG (Retrieval-Augmented Generation)** system designed to transform scattered organizational documents into actionable intelligence.
+Unlike traditional RAG systems that use the same retrieval pipeline for every question, OrgPulse AI intelligently decides **how much retrieval and reasoning is required**.
 
-Unlike a traditional RAG chatbot that simply retrieves documents and generates answers, OrgPulse AI combines **semantic search, keyword search, reranking, corrective retrieval, and AI agents** to analyze organizational knowledge and discover meaningful insights.
+It combines:
 
----
-
-## 🚀 Problem Statement
-
-Organizations generate large amounts of information across:
-
-- 📄 Project Reports
-- 📝 Meeting Notes
-- 🚨 Incident Reports
-- 📊 Status Reports
-- 🚀 Release Documents
-- 📚 Technical Documentation
-- 📋 Internal Knowledge Bases
-
-Over time, this information becomes scattered across multiple documents and teams.
-
-Employees struggle to answer questions such as:
-
-- Why is a project delayed?
-- Are multiple teams solving the same problem?
-- What are the biggest risks across projects?
-- Are there contradictions between different reports?
-- What projects or teams are connected to a particular issue?
-
-Traditional search systems and basic RAG chatbots can retrieve documents, but they cannot effectively discover **cross-document relationships and organizational intelligence**.
+* 🔍 Vector Search
+* 📝 Keyword Search
+* 🕸️ Knowledge Graph
+* 🧠 Adaptive RAG
+* 🔀 Fusion RAG
+* 🔮 HyDE
+* 🎯 Reranking
+* 🔄 Corrective RAG
+* 🤔 Self Reflection
 
 ---
 
-## 💡 Solution
+# 🚀 The Problem
 
-### OrgPulse AI
+Organizations generate large amounts of unstructured information:
 
-OrgPulse AI transforms organizational documents into an intelligent knowledge system.
+* 📄 Project Reports
+* 📝 Meeting Notes
+* 📊 Status Reports
+* 📧 Internal Documents
+* ⚠️ Risk Reports
+* 📋 Technical Documentation
 
-The system uses an **Agentic Hybrid RAG architecture** to:
+Important organizational knowledge is often scattered across multiple documents.
 
-- 🔍 Retrieve information using semantic and keyword search
-- 🎯 Rerank the most relevant results
-- 🔄 Correct poor retrieval automatically
-- 🤖 Route questions to specialized AI agents
-- 🔗 Discover relationships across documents
-- ⚠️ Detect organizational risks
-- 🚨 Identify contradictions
-- 📄 Provide evidence-backed answers
-- 📊 Generate confidence scores
+Traditional search systems struggle to answer questions such as:
+
+> Why is a project delayed?
+
+> What dependencies are causing a problem?
+
+> Which teams or projects are affected by a particular issue?
+
+> Are there risks hidden across multiple documents?
+
+> Do two organizational documents contain conflicting information?
 
 ---
 
-## 🧠 Key Features
+# 💡 The Solution
 
-### 1. 📄 Intelligent Document Processing
+OrgPulse AI transforms organizational documents into an **intelligent knowledge system**.
 
-Users can upload organizational documents such as:
-
-- PDF
-- TXT
-- DOCX
-- Project Reports
-- Meeting Notes
-- Incident Reports
+The system processes documents through two intelligence layers:
 
 ```text
-Document Upload
-      ↓
-Document Processing
-      ↓
-Text Extraction
-      ↓
-Chunking
-      ↓
-Embedding Generation
-      ↓
-PostgreSQL + pgvector
+                    ORGANIZATIONAL DOCUMENTS
+                              │
+                ┌─────────────┴─────────────┐
+                │                           │
+                ▼                           ▼
+
+          🔍 VECTOR MEMORY              🕸️ KNOWLEDGE GRAPH
+
+             FAISS                         Neo4j
+
+        Semantic Knowledge            Relationships
+
+        Document Chunks               Entities
+
+        Embeddings                    Dependencies
+
+                                     Connections
 ```
 
----
+This allows OrgPulse AI to understand both:
 
-### 2. 🔍 Hybrid Retrieval
+### 📄 What information exists?
 
-OrgPulse AI combines two retrieval approaches:
-
-#### Semantic Search
-Uses vector embeddings to understand the meaning behind a question.
-
-#### Keyword Search
-Uses BM25 to find exact terms.
-
-#### Hybrid Search
+Using:
 
 ```text
 Vector Search
-      +
-BM25 Search
-      ↓
-Hybrid Retrieval
++
+BM25 Keyword Search
 ```
 
-This improves retrieval accuracy by combining semantic understanding with exact keyword matching.
+### 🕸️ How information is connected?
+
+Using:
+
+```text
+Knowledge Graph
++
+Entity Relationships
++
+Multi-Hop Traversal
+```
 
 ---
 
-### 3. 🎯 Reranking
+# 🧠 What is Adaptive RAG?
 
-Initial retrieval may return many documents.
-
-```text
-Top 20 Results
-      ↓
-Cross-Encoder Reranker
-      ↓
-Top 5 Relevant Results
-```
-
-The reranker selects the most relevant context before it is sent to the LLM.
-
----
-
-### 4. 🔄 Self-Corrective RAG
-
-OrgPulse AI evaluates the quality of retrieved information before generating an answer.
+Traditional RAG uses a fixed pipeline:
 
 ```text
-User Question
-      ↓
+Question
+   ↓
 Retrieve Documents
-      ↓
-Evaluate Relevance
-      ↓
-
-   Context Good?
-
-     YES       NO
-      │         │
-      │         ▼
-      │    Rewrite Query
-      │         ↓
-      │    Retrieve Again
-      │         │
-      └─────────┘
-           ↓
-    Generate Answer
+   ↓
+LLM
+   ↓
+Answer
 ```
 
-This reduces irrelevant responses and improves answer quality.
+This approach treats every question the same.
 
----
+OrgPulse AI uses **Adaptive RAG**.
 
-### 5. 🤖 Agentic Intelligence
-
-The system analyzes the user's question and routes it to the appropriate agent.
+Before retrieving information, the system analyzes:
 
 ```text
-                User Question
-                     ↓
-                Agent Router
-                     ↓
+User Query
+    │
+    ▼
 
-        ┌────────────┼────────────┐
+🧠 Query Analyzer
 
-        ↓            ↓            ↓
-
-    RAG Agent    Risk Agent   Connection Agent
-                     │
-                     ↓
-               Conflict Agent
+    │
+    ├── Intent
+    │
+    ├── Entities
+    │
+    └── Complexity
 ```
 
-#### 🔍 RAG Agent
-Handles general organizational questions.
-
-#### ⚠️ Risk Agent
-Identifies potential risks across documents.
-
-#### 🔗 Connection Agent
-Discovers relationships between projects, teams, and issues.
-
-#### 🚨 Conflict Agent
-Detects contradictions between documents.
+Then it dynamically selects the best retrieval strategy.
 
 ---
 
-### 6. 🧠 Cross-Document Intelligence
+# ⚡ Adaptive Retrieval Strategies
 
-Instead of analyzing documents individually, OrgPulse AI analyzes information across multiple sources.
+## 🟢 Simple Query
+
+Example:
+
+> Who owns Payment Migration?
+
+Pipeline:
 
 ```text
-Document A
-     │
-Document B
-     │
-Document C
-     │
-Document D
-     ↓
-Relationship Discovery
-     ↓
-New Insight
+User Query
+    ↓
+Query Analyzer
+    ↓
+Hybrid Search
+    ↓
+FAISS + BM25
+    ↓
+RRF
+    ↓
+Reranker
+    ↓
+Answer
 ```
+
+The system uses a fast retrieval pipeline.
 
 ---
 
-### 7. 📊 Organizational Risk Intelligence
+## 🟡 Medium Query
 
-Example output:
+Example:
+
+> What blockers are affecting Payment Migration?
+
+Pipeline:
 
 ```text
-🚨 HIGH RISK
+User Query
+    ↓
+Query Analyzer
+    ↓
+Hybrid Retrieval
+    ↓
+FAISS + BM25
+    ↓
+RRF
+    ↓
+Reranker
+    ↓
+Graph Retrieval
+    ↓
+Context Fusion
+    ↓
+Answer
+```
 
-Project:
-Payment Migration
+The system adds Knowledge Graph reasoning.
 
-Risk Score:
-82%
+---
 
-Risk:
-Database migration dependency
+## 🔴 Complex Query
 
-Impact:
-HIGH
+Example:
 
-Evidence:
-📄 Project Status Report
-📄 Engineering Meeting Notes
-📄 Incident Report
+> Why is Payment Migration delayed, what dependencies caused it, and which other projects are affected?
+
+Pipeline:
+
+```text
+User Query
+    ↓
+🧠 Query Analyzer
+    ↓
+🔀 Fusion RAG
++
+🔮 HyDE
+    ↓
+🔍 Hybrid Retrieval
+    ↓
+FAISS + BM25
+    ↓
+🔥 RRF
+    ↓
+🎯 Reranker
+    ↓
+🕸️ Multi-Hop Graph Retrieval
+    ↓
+🔄 CRAG Evaluation
+    ↓
+🤔 Self Reflection
+    ↓
+🚀 Final Answer
+```
+
+Advanced techniques are activated **only when required**.
+
+---
+
+# 🏆 Core Architecture
+
+```text
+                           USER QUERY
+                               │
+                               ▼
+
+                       🧠 QUERY ANALYZER
+
+                  Intent + Entities + Complexity
+
+                               │
+
+                ┌──────────────┴──────────────┐
+
+                │                             │
+
+                ▼                             ▼
+
+           SIMPLE QUERY                  COMPLEX QUERY
+
+                │                             │
+
+                ▼                             ▼
+
+          FAST RETRIEVAL              ADVANCED RETRIEVAL
+
+                                              │
+
+                                  ┌───────────┴───────────┐
+
+                                  │                       │
+
+                                  ▼                       ▼
+
+                             🔀 Fusion RAG             🔮 HyDE
+
+                             Multi Query         Hypothetical Document
+
+                                  │                       │
+
+                                  └───────────┬───────────┘
+
+                                              │
+
+                ┌─────────────────────────────┴──────────────────────┐
+
+                │                                                    │
+
+                ▼                                                    ▼
+
+         🔍 VECTOR RETRIEVAL                                   🕸️ GRAPH RAG
+
+             FAISS                                               Neo4j
+
+                │                                                    │
+
+                ▼                                                    ▼
+
+         Semantic Search                                    Relationships
+
+                │                                             Multi-Hop
+
+                │                                             Dependencies
+
+                │                                                    │
+
+                └─────────────────────────────┬──────────────────────┘
+
+                                              │
+
+                                              ▼
+
+                                      🔍 HYBRID SEARCH
+
+                                     FAISS + BM25
+
+                                              │
+
+                                              ▼
+
+                                           🔥 RRF
+
+                                 Reciprocal Rank Fusion
+
+                                              │
+
+                                              ▼
+
+                                         🎯 RERANKER
+
+                                              │
+
+                                              ▼
+
+                                        CONTEXT FUSION
+
+                                              │
+
+                                              ▼
+
+                                         🔄 CRAG
+
+                                   Context Evaluation
+
+                                      │           │
+
+                                   GOOD          BAD
+
+                                      │           │
+
+                                      ▼           ▼
+
+                                  GENERATE    RETRIEVE AGAIN
+
+                                      │
+
+                                      ▼
+
+                                🤔 SELF REFLECTION
+
+                                      │
+
+                                      ▼
+
+                                  🚀 FINAL ANSWER
+
+                                      +
+
+                                  📄 SOURCES
+
+                                      +
+
+                                  🕸️ GRAPH PATH
+
+                                      +
+
+                                  📊 CONFIDENCE
 ```
 
 ---
 
-### 8. 🔗 Knowledge Connections
+# 🔥 Advanced RAG Techniques
 
-OrgPulse AI discovers relationships between:
+## 🔍 Hybrid Search
 
-- Projects
-- Teams
-- Technologies
-- Issues
-- Dependencies
-- Risks
+OrgPulse combines:
+
+```text
+FAISS
+  +
+BM25
+```
+
+### FAISS
+
+Used for semantic search.
+
+Example:
+
+```text
+User Query:
+
+Why is the project delayed?
+
+Can retrieve:
+
+Infrastructure dependency is blocking completion.
+```
+
+Even if the word **delay** does not appear.
+
+---
+
+### BM25
+
+Used for exact keyword matching.
 
 Example:
 
 ```text
 Payment Migration
-        │
-        │ depends on
-        ↓
-Database Team
-        │
-        │ delayed
-        ↓
 Infrastructure
-       /        \
-      ↓          ↓
-Cloud Migration  Mobile App
+Database
+Delay
 ```
 
 ---
 
-### 9. 📄 Evidence-Based Answers
+# 🔥 Reciprocal Rank Fusion
 
-Every answer is supported by source evidence.
+RRF combines results from multiple retrieval systems.
 
 ```text
-Answer:
-Payment Migration is delayed primarily because
-of database migration dependencies and
-infrastructure provisioning issues.
+FAISS Results
+
+     +
+
+BM25 Results
+
+     ↓
+
+RRF
+
+     ↓
+
+Unified Ranking
+```
+
+Formula:
+
+```text
+RRF Score = Σ 1 / (k + rank)
+```
+
+This improves retrieval reliability.
+
+---
+
+# 🎯 Reranking
+
+After retrieval:
+
+```text
+Top 20 Documents
+       ↓
+Cross Encoder
+       ↓
+Top 5 Relevant Documents
+```
+
+OrgPulse uses a Cross Encoder to compare:
+
+```text
+User Question
++
+Document Chunk
+```
+
+This improves answer precision.
+
+---
+
+# 🔀 Fusion RAG
+
+Fusion RAG generates multiple perspectives of a complex question.
+
+Example:
+
+```text
+Original Question
+
+Why is Payment Migration delayed?
+```
+
+Generated queries:
+
+```text
+What blockers affect Payment Migration?
+
+What dependencies are unresolved?
+
+What infrastructure problems affect the project?
+
+What is preventing project completion?
+```
+
+Each query retrieves information.
+
+Results are combined using:
+
+```text
+RRF
+```
+
+### Why?
+
+Different documents often use different terminology for the same problem.
+
+Fusion RAG improves **retrieval recall**.
+
+---
+
+# 🔮 HyDE
+
+HyDE stands for:
+
+> Hypothetical Document Embeddings
+
+The system generates a hypothetical document related to the question.
+
+Example:
+
+```text
+Question:
+
+Why is Payment Migration delayed?
+```
+
+Hypothetical document:
+
+```text
+Payment Migration may be delayed because of unresolved
+infrastructure dependencies, unavailable environments,
+database validation issues, or blocked testing.
+```
+
+The hypothetical document is embedded and used for semantic retrieval.
+
+```text
+Question
+    ↓
+Generate Hypothetical Document
+    ↓
+Embedding
+    ↓
+FAISS Search
+    ↓
+Relevant Real Documents
+```
+
+HyDE improves semantic retrieval for difficult queries.
+
+---
+
+# 🕸️ Knowledge Graph Intelligence
+
+OrgPulse uses Neo4j to store organizational relationships.
+
+## Nodes
+
+```text
+Project
+Team
+Person
+Issue
+Risk
+Technology
+Document
+Dependency
+```
+
+## Relationships
+
+```text
+DEPENDS_ON
+
+BLOCKED_BY
+
+AFFECTS
+
+OWNED_BY
+
+RELATED_TO
+
+MENTIONED_IN
+```
+
+Example:
+
+```text
+Payment Migration
+
+        │
+
+        │ DEPENDS_ON
+
+        ▼
+
+Database Team
+
+        │
+
+        │ BLOCKED_BY
+
+        ▼
+
+Infrastructure Delay
+
+        │
+
+        │ AFFECTS
+
+        ▼
+
+Cloud Migration
+```
+
+---
+
+# 🧠 Multi-Hop Reasoning
+
+Knowledge Graph allows OrgPulse to discover hidden relationships.
+
+Example:
+
+```text
+Payment Migration
+
+        ↓
+
+Database Team
+
+        ↓
+
+Infrastructure Delay
+
+        ↓
+
+Cloud Migration
+```
+
+This enables questions such as:
+
+> What other projects may be affected by this delay?
+
+Traditional Vector RAG alone cannot reliably perform this type of relationship reasoning.
+
+---
+
+# 🔄 Corrective RAG (CRAG)
+
+Before generating an answer, OrgPulse evaluates retrieved context.
+
+```text
+Retrieved Context
+
+       ↓
+
+CRAG Evaluator
+
+       ↓
+
+GOOD
+
+PARTIAL
+
+BAD
+```
+
+If the context is poor:
+
+```text
+Query Rewrite
+
+      ↓
+
+Retrieve Again
+```
+
+This allows the system to self-correct retrieval.
+
+---
+
+# 🤔 Self Reflection
+
+Before returning the answer, OrgPulse evaluates its own response.
+
+Checks include:
+
+```text
+✓ Is the answer supported by retrieved evidence?
+
+✓ Did the answer address the user question?
+
+✓ Is information missing?
+
+✓ Is there a possible hallucination?
+
+✓ Should the system retrieve more information?
+```
+
+---
+
+# 💎 OrgPulse AI Unique Features
+
+## 🟢 1. Adaptive Retrieval
+
+The system dynamically selects:
+
+```text
+Simple Query
+    ↓
+Fast Retrieval
+```
+
+```text
+Medium Query
+    ↓
+Graph + Hybrid Retrieval
+```
+
+```text
+Complex Query
+    ↓
+Advanced Adaptive RAG
+```
+
+---
+
+## ⚠️ 2. Risk Intelligence
+
+OrgPulse analyzes organizational knowledge to identify risks.
+
+Example:
+
+```text
+🔴 Payment Migration
+
+Risk:
+
+Infrastructure dependency delay
+
+Affected Projects:
+
+Cloud Migration
 
 Confidence:
-92%
 
-Evidence:
-📄 Payment_Status_Report.pdf
-📄 Engineering_Meeting_Notes.pdf
-📄 Migration_Incident_Report.pdf
+92%
 ```
 
 ---
 
-## 🏗️ System Architecture
+## 🚨 3. Contradiction Detection
+
+OrgPulse can detect conflicting information across documents.
+
+Example:
+
+### Document A
 
 ```text
-                         USER
-                           │
-                           ▼
-                    STREAMLIT UI
-                           │
-                           ▼
-                       FASTAPI
-                           │
-                           ▼
-                    AGENT ROUTER
-                           │
-          ┌────────────────┼────────────────┐
-          │                │                │
-          ▼                ▼                ▼
+Project completion: September 20
+```
 
-      RAG Agent        Risk Agent    Connection Agent
+### Document B
 
-          │                │                │
-          └────────────────┼────────────────┘
-                           │
-                           ▼
-                     HYBRID RAG
-                           │
-                 ┌─────────┴─────────┐
-                 ▼                   ▼
-           Vector Search         BM25 Search
-                 │                   │
-                 └─────────┬─────────┘
-                           ▼
-                    Hybrid Results
-                           │
-                           ▼
-                      Reranking
-                           │
-                           ▼
-                 Context Evaluation
-                           │
-                    Good? / Poor?
-                           │
-                           ▼
-                      Query Rewrite
-                           │
-                           ▼
-                  Answer Generation
-                           │
-                           ▼
-                   Evidence + Confidence
+```text
+Project completion delayed until October
+```
+
+OrgPulse:
+
+```text
+🚨 Timeline Contradiction Detected
+
+Project:
+Payment Migration
+
+Conflict:
+September 20 vs October
 ```
 
 ---
 
-## 🛠️ Technology Stack
+## 🕸️ 4. Dependency Intelligence
 
-### Frontend
-- Streamlit
+Users can ask:
 
-### Backend
-- FastAPI
-- Python
+> What projects depend on the Database Team?
 
-### AI Framework
-- LangChain
-- LangGraph
+> What issues are affecting multiple projects?
 
-### LLM
-- OpenAI / Groq / Ollama
+> Which dependency creates the highest organizational risk?
 
-### Embeddings
-- Sentence Transformers
-- HuggingFace Embeddings
-
-### Database
-- PostgreSQL
-- pgvector
-
-### Retrieval
-- Vector Search
-- BM25
-- Hybrid Search
-
-### Reranking
-- Cross-Encoder
+OrgPulse uses Knowledge Graph traversal to answer.
 
 ---
 
-## 📁 Project Structure
+## 📊 5. Evidence-Based Answers
+
+Every answer includes:
+
+```text
+📄 Document Sources
+
+🕸️ Graph Relationships
+
+📊 Confidence Score
+```
+
+---
+
+# 🛠️ Technology Stack
+
+| Layer               | Technology    |
+| ------------------- | ------------- |
+| Frontend            | Streamlit     |
+| Backend             | FastAPI       |
+| LLM                 | OpenAI        |
+| Embeddings          | HuggingFace   |
+| Vector Store        | FAISS         |
+| Keyword Search      | BM25          |
+| Knowledge Graph     | Neo4j         |
+| Reranker            | Cross Encoder |
+| Document Processing | PyPDF         |
+| DOCX Processing     | python-docx   |
+
+---
+
+# 📁 Project Structure
 
 ```text
 orgpulse-ai/
-
+│
 ├── frontend/
+│   │
 │   ├── app.py
+│   │
 │   ├── pages/
-│   │   ├── 1_Dashboard.py
-│   │   ├── 2_Ask_OrgPulse.py
+│   │   ├── 1_Ask_OrgPulse.py
+│   │   ├── 2_Knowledge_Graph.py
 │   │   ├── 3_Risk_Intelligence.py
-│   │   └── 4_Knowledge_Connections.py
+│   │   └── 4_System_Insights.py
+│   │
 │   └── components/
-│       ├── metrics.py
-│       ├── chat.py
+│       ├── api_client.py
 │       ├── evidence.py
-│       └── risk_cards.py
+│       ├── metrics.py
+│       └── graph_view.py
+│
 │
 ├── backend/
 │   └── app/
+│       │
 │       ├── main.py
+│       │
+│       ├── core/
+│       │   └── config.py
+│       │
 │       ├── api/
 │       │   ├── documents.py
+│       │   ├── query.py
+│       │   └── graph.py
+│       │
+│       ├── schemas/
+│       │   ├── document.py
 │       │   └── query.py
-│       ├── agents/
-│       │   ├── router.py
-│       │   ├── rag_agent.py
-│       │   ├── risk_agent.py
-│       │   ├── connection_agent.py
-│       │   └── conflict_agent.py
+│       │
 │       ├── rag/
+│       │   │
 │       │   ├── ingestion.py
+│       │   ├── chunker.py
 │       │   ├── embeddings.py
+│       │   │
+│       │   ├── query_analyzer.py
+│       │   ├── strategy_router.py
+│       │   │
+│       │   ├── fusion_rag.py
+│       │   ├── hyde.py
+│       │   │
 │       │   ├── vector_search.py
 │       │   ├── bm25_search.py
 │       │   ├── hybrid_search.py
+│       │   ├── rrf.py
 │       │   ├── reranker.py
-│       │   └── corrective_rag.py
-│       ├── database/
+│       │   │
+│       │   ├── crag.py
+│       │   └── self_reflection.py
+│       │
+│       ├── vectorstore/
+│       │   └── faiss_store.py
+│       │
+│       ├── graph/
 │       │   ├── connection.py
-│       │   └── models.py
-│       └── core/
-│           └── config.py
+│       │   ├── schema.py
+│       │   ├── entity_extractor.py
+│       │   ├── relationship_extractor.py
+│       │   └── graph_retriever.py
+│       │
+│       └── services/
+│           ├── document_service.py
+│           └── query_service.py
 │
 ├── sample_data/
+│
+├── uploads/
+│
 ├── requirements.txt
+├── .env
 ├── .env.example
+├── .gitignore
+│
 └── README.md
 ```
 
 ---
 
-## 🔄 RAG Pipeline
+# ⚙️ Installation
+
+## 1. Clone Repository
+
+```bash
+git clone <your-repository-url>
+
+cd orgpulse-ai
+```
+
+---
+
+## 2. Create Virtual Environment
+
+```bash
+python -m venv venv
+```
+
+### Windows
+
+```bash
+venv\Scripts\activate
+```
+
+### Mac / Linux
+
+```bash
+source venv/bin/activate
+```
+
+---
+
+## 3. Install Dependencies
+
+```bash
+pip install -r requirements.txt
+```
+
+---
+
+## 4. Configure Environment
+
+Copy:
 
 ```text
-DOCUMENT
-   ↓
-Text Extraction
-   ↓
-Chunking
-   ↓
-Generate Embeddings
-   ↓
-PostgreSQL + pgvector
+.env.example
+```
 
+Create:
 
+```text
+.env
+```
+
+Add:
+
+```env
+OPENAI_API_KEY=your_openai_api_key
+
+OPENAI_MODEL=gpt-4.1-mini
+
+EMBEDDING_MODEL=sentence-transformers/all-MiniLM-L6-v2
+
+NEO4J_URI=your_neo4j_uri
+
+NEO4J_USERNAME=neo4j
+
+NEO4J_PASSWORD=your_password
+
+NEO4J_DATABASE=neo4j
+
+CHUNK_SIZE=800
+
+CHUNK_OVERLAP=150
+
+VECTOR_TOP_K=10
+
+BM25_TOP_K=10
+
+RERANK_TOP_K=5
+```
+
+---
+
+# ▶️ Run Backend
+
+From:
+
+```text
+backend/
+```
+
+Run:
+
+```bash
+uvicorn app.main:app --reload
+```
+
+Backend:
+
+```text
+http://localhost:8000
+```
+
+API Documentation:
+
+```text
+http://localhost:8000/docs
+```
+
+---
+
+# 🎨 Run Frontend
+
+From:
+
+```text
+frontend/
+```
+
+Run:
+
+```bash
+streamlit run app.py
+```
+
+---
+
+# 🔄 Document Processing Pipeline
+
+```text
+PDF / DOCX / TXT
+
+        │
+
+        ▼
+
+TEXT EXTRACTION
+
+        │
+
+        ▼
+
+CHUNKING
+
+        │
+
+        ├───────────────────┐
+
+        │                   │
+
+        ▼                   ▼
+
+VECTOR PIPELINE       GRAPH PIPELINE
+
+Embeddings            Entity Extraction
+
+FAISS                 Relationship Extraction
+
+                         Neo4j
+
+        │                   │
+
+        └───────────┬───────┘
+
+                    ▼
+
+           DOCUMENT INDEXED
+```
+
+---
+
+# 🔍 Query Processing Pipeline
+
+```text
 USER QUESTION
-   ↓
-Query Understanding
-   ↓
-Agent Router
-   ↓
-Hybrid Search
-   ↓
-Vector Search + BM25
-   ↓
-Reranking
-   ↓
-Context Evaluation
-   ↓
-Query Rewrite (if required)
-   ↓
-AI Agent Analysis
-   ↓
-Generate Response
-   ↓
-Evidence + Confidence
+
+      │
+
+      ▼
+
+QUERY ANALYZER
+
+      │
+
+Intent
+Entities
+Complexity
+
+      │
+
+      ▼
+
+STRATEGY ROUTER
+
+      │
+
+      ├──────────────┐
+
+      │              │
+
+      ▼              ▼
+
+SIMPLE          COMPLEX
+
+      │              │
+
+      ▼              ▼
+
+FAST         ADVANCED
+
+      │              │
+
+      │       Fusion RAG
+
+      │       HyDE
+
+      │              │
+
+      └──────┬───────┘
+
+             ▼
+
+      HYBRID RETRIEVAL
+
+      FAISS + BM25
+
+             │
+
+             ▼
+
+            RRF
+
+             │
+
+             ▼
+
+         RERANKER
+
+             │
+
+             ▼
+
+       GRAPH RETRIEVAL
+
+             │
+
+             ▼
+
+       CONTEXT FUSION
+
+             │
+
+             ▼
+
+            LLM
+
+             │
+
+             ▼
+
+       FINAL RESPONSE
 ```
 
 ---
 
-## 🎨 Streamlit Application
+# 🏆 Why OrgPulse AI?
 
-### 🏠 Dashboard
-Displays:
-
-- Total Documents
-- Detected Risks
-- Knowledge Connections
-- Recent Insights
-
-### 🤖 Ask OrgPulse
-
-Users can ask:
-
-```text
-Why is Payment Migration delayed?
-
-What are the biggest risks across projects?
-
-Are multiple teams solving the same problem?
-
-Which projects are affected by the infrastructure delay?
-```
-
-### ⚠️ Risk Intelligence
-
-Displays:
-
-- Risk Score
-- Impact Level
-- Affected Projects
-- Evidence
-- AI Recommendations
-
-### 🔗 Knowledge Connections
-
-Visualizes relationships between:
-
-- Projects
-- Teams
-- Issues
-- Dependencies
-
----
-
-## 🎯 Example Use Cases
-
-### Root Cause Analysis
-
-**Question:**
-> Why is the Payment Migration project delayed?
-
-**Example Insight:**
-
-```text
-Root Cause Analysis
-
-1. Database migration dependency
-2. Infrastructure provisioning delay
-3. Testing environment unavailable
-
-Potential Impact:
-Cloud Migration may also be affected.
-
-Confidence: 91%
-```
-
-### Duplicate Work Detection
-
-**Question:**
-> Are multiple teams building similar solutions?
-
-The system compares cross-document information and identifies similar work across teams.
-
-### Risk Analysis
-
-**Question:**
-> What are the biggest risks across projects?
-
-The Risk Agent analyzes project reports, meeting notes, and incidents to identify potential risks.
-
-### Contradiction Detection
-
-**Question:**
-> Are there conflicting release dates?
-
-Example:
-
-```text
-🚨 CONTRADICTION DETECTED
-
-Document A:
-Release Date: September 10
-
-Document B:
-Release Date: September 25
-
-Recommendation:
-Verify the latest project release plan.
-```
-
----
-
-## 🧠 RAG Strategy
-
-OrgPulse AI uses:
-
-# Agentic Hybrid RAG with Corrective Retrieval
-
-```text
-Hybrid Search
-      +
-Reranking
-      +
-Corrective Retrieval
-      +
-Agent Routing
-      +
-Cross-Document Intelligence
-```
-
----
-
-## 🔥 Why OrgPulse AI?
-
-### Traditional RAG
+Traditional RAG:
 
 ```text
 Question
-   ↓
+
+↓
+
 Retrieve
-   ↓
-Generate
+
+↓
+
+Answer
 ```
 
-### OrgPulse AI
+OrgPulse AI:
 
 ```text
-Search
-   ↓
+Question
+
+↓
+
+Understand
+
+↓
+
+Analyze Complexity
+
+↓
+
+Select Strategy
+
+↓
+
+Retrieve Knowledge
+
+↓
+
+Explore Relationships
+
+↓
+
+Evaluate Evidence
+
+↓
+
+Generate
+
+↓
+
 Validate
-   ↓
-Correct
-   ↓
-Analyze
-   ↓
-Connect
-   ↓
-Discover
-   ↓
-Answer with Evidence
+
+↓
+
+Answer
 ```
 
-OrgPulse AI goes beyond document question answering and helps organizations discover meaningful insights hidden across their data.
+---
+
+# 🎯 Buildathon Innovation
+
+## OrgPulse AI is not just a chatbot.
+
+It is an:
+
+> **Adaptive Organizational Intelligence System powered by Vector Search, Knowledge Graphs, and Advanced RAG.**
+
+The system dynamically decides:
+
+```text
+HOW TO SEARCH
+
+WHAT TO RETRIEVE
+
+WHEN TO USE ADVANCED RAG
+
+WHEN TO EXPLORE RELATIONSHIPS
+
+WHEN TO RETRIEVE AGAIN
+```
 
 ---
 
-## 🚀 Future Enhancements
+# 🚀 Future Enhancements
 
-- 📧 Email Integration
-- 💬 Slack Integration
-- 📊 Advanced Analytics
-- 🕸️ Interactive Knowledge Graph
-- 👥 Role-Based Access Control
-- 🔔 Risk Alerts
-- 🔄 Real-Time Document Updates
-- 📈 Organizational Trend Analysis
-
----
-
-## 🏆 Buildathon Highlights
-
-### Advanced RAG
-- Hybrid Retrieval
-- Reranking
-- Corrective Retrieval
-
-### Agentic AI
-- Agent Router
-- Specialized Agents
-
-### Organizational Intelligence
-- Risk Detection
-- Connection Discovery
-- Contradiction Detection
-
-### Evidence-Based AI
-- Source Citations
-- Confidence Scores
-- Verification
+* Multi-agent architecture
+* Real-time document updates
+* Graph visualization dashboard
+* Organizational risk prediction
+* Automated dependency analysis
+* Team intelligence
+* Historical trend analysis
+* Role-based access control
+* Enterprise authentication
+* Cloud deployment
+* Real-time collaboration
 
 ---
 
-## 📌 Project Vision
-
-> **OrgPulse AI is designed to evolve from a document question-answering system into an intelligent organizational knowledge engine capable of discovering risks, relationships, contradictions, and actionable insights across scattered organizational information.**
-
----
-
-## 👩‍💻 Author
+# 👩‍💻 Author
 
 **Suguna Jayaram**
 
-Senior Software Engineer | AI Engineering Enthusiast
+Senior Software Engineer | React Developer | AI Engineering Enthusiast
 
 ---
 
-## ⭐ Final Thought
+# ⭐ Final Vision
 
-> **OrgPulse AI does not just answer questions. It helps organizations understand what their documents are collectively trying to say.**
+```text
+                ORGPULSE AI
+
+      Understand Organization Knowledge
+
+                  ↓
+
+         Discover Relationships
+
+                  ↓
+
+           Detect Risks
+
+                  ↓
+
+        Identify Dependencies
+
+                  ↓
+
+        Adapt Retrieval Strategy
+
+                  ↓
+
+          Provide Evidence
+
+                  ↓
+
+            Intelligent Answer
+```
+
+> **"From Documents to Organizational Intelligence."**
+
+🚀 **Built with Adaptive RAG + GraphRAG + Advanced Retrieval**
